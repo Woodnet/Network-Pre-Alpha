@@ -38,13 +38,14 @@ schon in Benutzung ist!
 # Verwendete Python-Module 
 
       --> cryptography (Fernet)
-      --> socket 
+      --> socket (AF_INET, SOCK_STREAM)
       --> datetime (datetime)
       --> colorama (Fore,init,Style)
       --> tkinter 
       --> ( Tkinter )
       --> os
       --> sys
+      --> threading (Thread)
       
 # Fehlende Module installieren
    
