@@ -43,7 +43,9 @@ schon in Benutzung ist!
       --> colorama (Fore,init,Style)
       --> tkinter 
       --> ( Tkinter )
-
+      --> os
+      --> sys
+      
 # Fehlende Module installieren
    
       pip install cryptography
