@@ -2,6 +2,15 @@
 Eine Pre-Alpha-Version. Derzeit ist nur ein Chat-Server verfügbar, welcher mit dem Client über das Internetprotokol TCP kommuniziert.
 Ich habe bis hierhin noch das gesammte Server-Script in verschiedene Funktionen gepackt, d.h. ich habe NOCH keine 
 Klasse benutzt. 
+
+Installation-Linux:
+                   
+                     git clone https://github.com/Woodnet/Network-Pre-Alpha.git
+
+Installation-Windows:
+                    
+                     Download ZIP-Datei
+
 # Verschlüsselung? 
 Die Kommunikation erfolgt über das Python-Modul cryptography und benutzt eine sichere AES-256-Verschlüsselung.
 Der Schlüssel wird immer unmittelbar nach dem Start des Server-Scripts zufällig generiert. 
