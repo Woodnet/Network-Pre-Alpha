@@ -6,6 +6,7 @@ noch verändert. Der Server aktzeptiert bis jetzt nur mit einem Client, also noc
 Der Client kann über 2-Threads eine Nachricht senden und gleichzeitig an einem beliebigen Port auf eine verschlüsselte Nachricht vom 
 Server warten.
 # Verwendete Python-Module
+
    --> cryptography (Fernet)
    --> socket 
    --> datetime (datetime)
