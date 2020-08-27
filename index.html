@@ -3,25 +3,7 @@
 <head>
     <title>REP</title>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
-    <script type="text/javascript">
-        var auto_refresh = setInterval(
-        function ()
-        {
-          $('#content1').load('chatindex.html');
-        }, 1000);
-        function CopyFunction() {
-          /* Get the text field */
-          var copyText = document.getElementById("encryptionkey");
-          /* Select the text field */
-          copyText.select();
-          copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-
-          /* Copy the text inside the text field */
-          document.execCommand("copy");
-
-          /* Alert the copied text */
-          alert("Copied the Encryption Key!");
-        } 
+    <script language="javascript" type="text/javascript" src="main_index.js" >
     </script>
 </head>
 <body>
