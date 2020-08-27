@@ -13,3 +13,18 @@ Server warten.
       --> colorama (Fore,init,Style)
       --> tkinter 
       --> ( Tkinter )
+
+# Fehlende Module installieren
+   
+      pip install cryptography
+
+# Linux-PIP-Fehler
+
+      pip3 install cryptography
+
+oder 
+
+      sudo apt-get intall python3-pip
+      pip3 install cryptography
+
+ 
