@@ -1,5 +1,7 @@
 # Network-Pre-Alpha
 Eine Pre-Alpha-Version. Derzeit ist nur ein Chat-Server verfügbar, welcher mit dem Client kommuniziert.
+Ich habe bis hierhin noch das gesammte Server-Script in verschiedene Funktionen gepackt, d.h. ich habe NOCH keine 
+Klasse benutzt.
 # Verschlüsselung? 
 Die Kommunikation erfolgt über das Python-Modul cryptography und benutzt eine sichere AES-256-Verschlüsselung.
 Der Schlüssel wird immer unmittelbar nach dem Start des Server-Scripts zufällig generiert. 
