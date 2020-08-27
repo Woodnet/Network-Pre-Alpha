@@ -1,3 +1,8 @@
+#
+#By Pulsar
+#Python-Version: 3 (7.2)
+#Script: Main-Server
+#
 import socket,os,sys 
 from datetime import datetime 
 from cryptography.fernet import Fernet 
