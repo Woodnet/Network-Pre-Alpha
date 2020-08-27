@@ -8,9 +8,9 @@ Server warten.
 # Python-Module
 Diese Python-Module werden verwendet: 
 
-   -> cryptography (Fernet)
-   -> socket 
-   -> datetime (datetime)
-   -> colorama (Fore,init,Style)
-   -> tkinter 
-   (-> Tkinter )
+   --> cryptography (Fernet)
+   --> socket 
+   --> datetime (datetime)
+   --> colorama (Fore,init,Style)
+   --> tkinter 
+   --> ( Tkinter )
