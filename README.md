@@ -1,6 +1,6 @@
 # Network-Pre-Alpha
 Eine Pre-Alpha-Version. Derzeit ist nur ein Chat-Server verfügbar, welcher mit dem Client über das Internetprotokol TCP kommuniziert.
-Ich habe bis hierhin noch das gesammte Server-Script in verschiedene Funktionen gepackt, d.h. ich habe NOCH keine 
+Ich habe bis hierhin noch das gesamte Server-Script in verschiedene Funktionen gepackt, d.h. ich habe NOCH keine 
 Klasse benutzt. 
 
 Installation-Linux:
