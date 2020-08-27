@@ -5,15 +5,15 @@ Klasse benutzt.
 
 Installation-Linux:
                    
-                     git clone https://github.com/Woodnet/Network-Pre-Alpha.git
+    git clone https://github.com/Woodnet/Network-Pre-Alpha.git
 
 Falls "git" nicht erkannt wird, dann gebe ein (Linux)
                     
-                     sudo apt-get install git
+    sudo apt-get install git
 
 Installation-Windows:
                     
-                     Download ZIP-Datei
+    Download ZIP-Datei
 
 # Verschlüsselung? 
 Die Kommunikation erfolgt über das Python-Modul cryptography und benutzt eine sichere AES-256-Verschlüsselung.
