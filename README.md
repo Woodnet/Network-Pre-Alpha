@@ -63,7 +63,9 @@ schon in Benutzung ist!
 # Fehlende Module installieren
    
       pip install cryptography
-
+      
+      pip install colorama 
+      
 # Linux-PIP-Fehler
 
       pip3 install cryptography
