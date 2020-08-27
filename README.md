@@ -5,6 +5,9 @@ D.h., dass die Scripts bei weitem noch nicht fertig sind. Die Webseite ist ein B
 noch verändert. Der Server aktzeptiert bis jetzt nur mit einem Client, also noch kein multithreading. 
 Der Client kann über 2-Threads eine Nachricht senden und gleichzeitig an einem beliebigen Port auf eine verschlüsselte Nachricht vom 
 Server warten.
+# Achtung!
+Der Server will die den Hostnamen "localhost" (IP: 127.0.0.1) mit dem Port 1337 binden. Stelle sicher, dass dieser nicht 
+schon in Benutzung ist!
 # Verwendete Python-Module 
 
       --> cryptography (Fernet)
