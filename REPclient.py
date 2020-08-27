@@ -31,10 +31,10 @@ def receive():
             pkg = f.decrypt(new_msg)
             print(w+"ENTSCHLÜSSELT")
             msg = pkg.decode()
-            if (x == 3):
-                msg_list.insert(tkinter.END,"Encrypted Chat")
-                msg_list.insert(tkinter.END," ")
-            msg_list.insert(tkinter.END,msg)
+            try:
+                msg_list.insert(tkinter.END,msg)
+            except Exception:
+                pass
 
         except OSError:
             break
