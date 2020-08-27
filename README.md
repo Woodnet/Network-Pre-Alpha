@@ -50,4 +50,47 @@ oder
       
 
 4. Öffne anhand von Ngrok den HTTP-Port 80
+
+5. Gebe in den Browser diese Adresse ein:
+
+            http://localhost/
+
+ # Wie führe ich das Script aus? (Linux)
+ 
+ 1. Öffne die Konsole
+      
+            python3 REPserver.py
+ 
+ 2. Öffne eine zweite Konsole oder einen neuen Reiter
+      
+            python3 REPclient.py
+ 
+ 3. Öffne eine dritte Konsole oder einen neuen Reiter
+            
+            service apache2 start
+            
+ 4. Sollte dieser Dienst nicht vorhanden sein, dann gebe in der Konsole ein
+ 
+            sudo apt-get install apache2
+            
+            oder 
+            
+            sudo apt-get install apache
+            
+            dann 
+            
+            sudo service apache2 start
+            
+ 5. Gebe in der Konsole ein
+ 
+            sudo service apache2 status
+            
+ 6. Öffne den Browser 
+ 
+            http://localhost/
+          
+            
+                  
+
+
       
