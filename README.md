@@ -3,7 +3,9 @@ Eine Pre-Alpha-Version. Derzeit ist nur ein Chat-Server verfügbar, welcher mit 
 # Verschlüsselung? 
 Die Kommunikation erfolgt über das Python-Modul cryptography und benutzt eine sichere AES-256-Verschlüsselung.
 Der Schlüssel wird immer unmittelbar nach dem Start des Server-Scripts zufällig generiert. 
+
 So sieht der Schlüssel in etwa aus: g0pp5rQujpQR5CekO6zXjvp1ecRjV9i_huA6KgJHed0=
+
 # Pre-Alpha-Version?
 D.h., dass die Scripts bei weitem noch nicht fertig sind. Die Webseite ist ein Beispiel und das Design wird 
 noch verändert. Der Server aktzeptiert bis jetzt nur mit einem Client, also noch kein multithreading. 
