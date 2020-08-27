@@ -30,4 +30,24 @@ oder
       sudo apt-get intall python3-pip
       pip3 install cryptography
 
+ # Wie führe ich das Script aus? (Windows)
  
+1. Öffne die Konsole
+
+            python3 REPserver.py 
+ 
+2. Öffne eine zweite Konsole oder einen neuen Reiter
+
+            python3 REPclient.py
+
+3. Downloade Ngrok:
+            
+            Ngrok-Installation: https://ngrok.com/downloadhttps://ngrok.com/download
+            
+            Ein YouTube-Video zur Installation: https://www.youtube.com/watch?v=9gaaVbX0USI
+            
+      
+      
+
+4. Öffne anhand von Ngrok den HTTP-Port 80
+      
