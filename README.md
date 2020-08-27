@@ -7,6 +7,10 @@ Installation-Linux:
                    
                      git clone https://github.com/Woodnet/Network-Pre-Alpha.git
 
+Falls "git" nicht erkannt wird, dann gebe ein (Linux)
+                    
+                     sudo apt-get install git
+
 Installation-Windows:
                     
                      Download ZIP-Datei
