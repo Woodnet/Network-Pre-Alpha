@@ -42,7 +42,7 @@ oder
 
 3. Downloade Ngrok:
             
-            Ngrok-Installation: https://ngrok.com/download
+            Ngrok-ZIP-Installation: https://ngrok.com/download
             
             Ein YouTube-Video zur Installation: https://www.youtube.com/watch?v=9gaaVbX0USI
             
