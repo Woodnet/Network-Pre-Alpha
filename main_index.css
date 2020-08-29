@@ -1,7 +1,15 @@
 
 #encryptionkey{
-  font-size: 17px;
-  padding: 5px;
+  font-size: 24px;
+  padding: 8px;
+  width: 50%;
+  border: 0px solid white;
+  border-radius: 6px;
+  font-family: Arial;
+
+}
+#encryptionkey:hover{
+  border: 3px solid rgb(39, 76, 143);
 }
 .newtext{
   text-align: left;
@@ -21,13 +29,13 @@
   text-align:center;
   font-size: 66px;
   font-family: Arial,sans-serif;
-  color:black;
+  color:rgb(13, 17, 49);
   letter-spacing: .344em;
   text-transform: uppercase;
   padding: 25px;
   width: 50%;
   margin: auto;
-  background-color:rgba(245, 245, 245, 0.685);
+  background-color:rgb(236, 236, 236);
   border-radius: 6px;
 }
 .senttext{
@@ -100,7 +108,7 @@
   margin: auto;
   border: 0px solid black;
   box-shadow: 4px 4px 4px 4px black;
-  border-radius: 20px;
+  border-radius: 5px;
   width: 90%;
   padding: 20px;
   background-color: rgb(245, 245, 245);
@@ -120,9 +128,9 @@ td, th {
 }
 tr:nth-child(even) {
   background-color: #dddddde5;
-  border-radius: 10px;
+  border-radius: 1px;
 }
 body{
   background-color: rgb(24, 21, 21);
-  border-radius: 10px;
+  border-radius: 1px;
 }
