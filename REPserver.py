@@ -6,6 +6,11 @@
 import socket,os,sys 
 from datetime import datetime 
 from cryptography.fernet import Fernet 
+from threading import Thread
+import base64
+from cryptography.hazmat.backends import default_backend
+from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC     
 
 os.system("clear") #Linux -default
 
@@ -37,7 +42,19 @@ def testfile(filename):
         print("[!] The File does not exist!")
         quit()
 
-def encryption(key,msg,filename):
+def accept_incoming_connections(s,filename,m,connections):
+    while True:
+        client, client_address = s.accept()
+        connections += 1
+        print(" [%s] [INFO] Neue Verbindung wurde hinzugefügt"%(gettime()))
+        message = '<td class="messagetext">%s</td><!--Connected_Number-->'%(connections)
+        keyword = "Connected_Number"
+        writeinfile(filename,message,keyword)
+        #client.send(bytes("Willkommen beim Woodnet Chatroom! Gebe bitte deinen gewuenschten Namen ein und druecke Enter", "utf8"))
+        addresses[client] = client_address
+        Thread(target=handle_client, args=(client,s,filename,m,connections)).start()
+
+def encryption(msg):
     f = Fernet(key)
     sys.stdout.write(" [%s] [INFO] Encrypting Message.."%(gettime()))   
     sys.stdout.flush()
@@ -49,7 +66,7 @@ def encryption(key,msg,filename):
         failure(e)
     return packet 
 
-def decryption(key,packet):
+def decryption(packet):
     f = Fernet(key)
     sys.stdout.write(" [%s] [INFO] Decrypting Message.."%(gettime()))   
     sys.stdout.flush()
@@ -60,16 +77,6 @@ def decryption(key,packet):
         print("[!]")
         failure(e)
     return msg.decode()
-
-def send_msg(client,packet):
-    sys.stdout.write(" [%s] [INFO] Sending Message.."%(gettime()))   
-    sys.stdout.flush()
-    try:
-        client.send(packet)
-        print("[+]")
-    except Exception as e:
-        print("[!]")
-        failure(e)
 
 def writeinfile(filename,message,keyword):
     file = open(filename,"r")
@@ -101,80 +108,112 @@ def create_socket(s,s_addr,filename):
         print("[!]")
         failure(e)
 
-def run_server(s,filename,m):
-    sys.stdout.write(" [%s] [INFO] Listening for Client.."%(gettime()))   
-    sys.stdout.flush()
-    message = '<td class="yellowtext">Listening for Client..</td><!--Server_Status_NOW_CURRENT-->'
-    keyword = "Server_Status_NOW_CURRENT"
-    writeinfile(filename,message,keyword)
-    s.listen(1)
-    (client,addr) = s.accept()
+def client_close(client,connections,name,m):
+    del clients[client]
+    print(" [%s] [WARNUNG] %s hat den Chat verlassen." %(gettime(),name))
     message = '<td class="greentext">Connected</td><!--Server_Status_NOW_CURRENT-->'
     keyword = "Server_Status_NOW_CURRENT"
     writeinfile(filename,message,keyword)
-    message = '<td class="greentext">%s</td><!--Client_Address_Connected-->'%(str(addr))
-    keyword = "Client_Address_Connected"
-    writeinfile(filename,message,keyword)
-    print("[+]")
-    message = "Hello Client! You are now connected with the Server!"
-    packet = encryption(key,message,filename)
-    sys.stdout.write(" [%s] [INFO] Sending Message to Client.."%(gettime()))   
-    sys.stdout.flush()
+    broadcast("Hat den Chat verlassen",name)
     m += 1
-    message = '<td class="text">%s</td><!--Sent_Messages-->'%(m)
+    message = '<td class="messagetext">%s</td><!--Sent_Messages-->'%(m)
     keyword = "Sent_Messages"
     writeinfile(filename,message,keyword)
-    send_msg(client,packet)
+    client.close()
+    connections -= 1
+    message = '<td class="messagetext">%s</td><!--Connected_Number-->'%(connections)
+    keyword = "Connected_Number"
+    writeinfile(filename,message,keyword)
+    quit()
+
+def handle_client(client,s,filename,m,connections): 
+    message = '<td class="greentext">Connected</td><!--Server_Status_NOW_CURRENT-->'
+    keyword = "Server_Status_NOW_CURRENT"
+    writeinfile(filename,message,keyword)
+    try:
+        packet = client.recv(2048)
+        name = decryption(packet)
+    except:
+        client_close(client,connections)
+    welcome = 'Willkommen %s! Wenn du den Chat verlassen willst gebe bitte +quit+ ein.'%(name)
+    packet = encryption(welcome)
+    try:
+        client.send(packet)
+    except:
+        client_close(client,connections)
+    m += 1
+    message = '<td class="messagetext">%s</td><!--Sent_Messages-->'%(m)
+    keyword = "Sent_Messages"
+    writeinfile(filename,message,keyword)
+    msg = "ist dem Chat beigetreten"
+    broadcast(msg,name)
+    m += 1
+    message = '<td class="messagetext">%s</td><!--Sent_Messages-->'%(m)
+    keyword = "Sent_Messages"
+    writeinfile(filename,message,keyword)
+    clients[client] = name
     while True:
-        sys.stdout.write(" [%s] [INFO] Receiving Packet.."%(gettime()))   
-        sys.stdout.flush()
-        try:
-            packet = client.recv(2048)
-            m += 1
-            print("[+]")
-            message = '<td class="senttext">%s</td><!--Sent_Messages-->'%(m)
+        m += 1
+        packet = client.recv(2048)
+        msg = decryption(packet)
+        if (msg != "+quit+"):
+            broadcast(msg, name)
+            message = '<td class="messagetext">%s</td><!--Sent_Messages-->'%(m)
             keyword = "Sent_Messages"
             writeinfile(filename,message,keyword)
-        except Exception as e:
-            print("[!]")
-            failure(e)  
-        message = decryption(key,packet)
-        newmessage = "<[CLIENT]> %s"%(message)
-        packet = encryption(key,message,filename)
-        send_msg(client,packet)
-        print(" <[CLIENT]> %s"%(message))
-        message = '<td class="messagetext">%s</td><!--Last_Message_CURRENT-->'%(len(packet.decode()))
-        keyword = "Last_Message_CURRENT"
-        writeinfile(filename,message,keyword)
-        
+        else:
+            client_close(client,connections,name,m)
+
+def broadcast(msg, prefix):
+    for sock in clients:
+        message = "<%s> %s"%(prefix,msg)
+        packet = encryption(message)
+        sock.send(packet)
 
 #MAIN-HOME
 key = Fernet.generate_key()
-filename = "chatindex.html"
+filename = "changeindex.html"
 message = '<td class="text"><input type="text" value="%s" id="encryptionkey"></td><!--Server_Encryption_Key-->'%(key.decode())
 keyword = "Server_Encryption_Key"
 writeinfile(filename,message,keyword)
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) #TCP 
-s_addr = ("localhost",1337)
+s_addr = ("192.168.81.128",1330)
 m = 0
-while True:
+connections = 0
+clients = {}
+addresses = {}
+def cl():
+    message = '<td class="redtext">Connection Down</td><!--Server_Status_NOW_CURRENT-->'
+    keyword = "Server_Status_NOW_CURRENT"
+    writeinfile(filename,message,keyword)
+    message = '<td class="redtext">-</td><!--Server_Failure_ErrorCode-->'
+    keyword = "Server_Failure_ErrorCode"
+    writeinfile(filename,message,keyword)
+    message = '<td class="messagetext">-</td><!--Connected_Number-->'
+    keyword = "Connected_Number"
+    writeinfile(filename,message,keyword)
+    message = '<td class="messagetext">0</td><!--Sent_Messages-->'
+    keyword = "Sent_Messages"
+    writeinfile(filename,message,keyword)
+cl()
+
+if __name__ == "__main__":
     try:
         testfile(filename)
         create_socket(s,s_addr,filename)
-        run_server(s,filename,m)
+        print(" [%s] [INFO] Listening for Clients.."%(gettime()))   
+        message = '<td class="yellowtext">Listening for Clients..</td><!--Server_Status_NOW_CURRENT-->'
+        keyword = "Server_Status_NOW_CURRENT"
+        writeinfile(filename,message,keyword)
+        s.listen(5)
+        ACCEPT_THREAD = Thread(target=accept_incoming_connections,args=(s,filename,m,connections))
+        ACCEPT_THREAD.start()
+        ACCEPT_THREAD.join()
+        s.close()
+        message = '<td class="redtext">Connection Down</td><!--Server_Status_NOW_CURRENT-->'
+        keyword = "Server_Status_NOW_CURRENT"
+        writeinfile(filename,message,keyword)
     except KeyboardInterrupt:
-        False 
-s.close()
-message = '<td class="redtext">Connection Down</td><!--Server_Status_NOW_CURRENT-->'
-keyword = "Server_Status_NOW_CURRENT"
-writeinfile(filename,message,keyword)
-client.close()
-quit()
-    
+        cl()
+        quit() 
 #
-        
-        
-        
-
-
-        
