@@ -173,7 +173,7 @@ message = '<td class="text"><input type="text" value="%s" id="encryptionkey"></t
 keyword = "Server_Encryption_Key"
 writeinfile(filename,message,keyword)
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM) #TCP 
-s_addr = ("192.168.81.128",1330)
+s_addr = ("0.0.0.0",1330)
 m = 0
 connections = 0
 clients = {}
